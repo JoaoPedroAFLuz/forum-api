@@ -1,7 +1,7 @@
 import { Answer } from '../entities/answer';
 
 interface AnswerQuestionRequest {
-  studentId: string;
+  instructorId: string;
   questionId: string;
   content: string;
 }
@@ -14,11 +14,11 @@ export class AnswerQuestion {
   constructor() {}
 
   execute({
-    studentId,
+    instructorId,
     questionId,
     content,
   }: AnswerQuestionRequest): AnswerQuestionResponse {
-    const answer = new Answer(content);
+    const answer = new Answer({ content, authorId: instructorId, questionId });
 
     return { answer };
   }
