@@ -1,47 +1,55 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { makeQuestion } from 'test/factories/make-question';
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository';
-import { DeleteQuestionByIdUseCase } from './delete-question-by-id';
+import { EditQuestionUseCase } from './edit-question';
 import { GetQuestionByIdUseCase } from './get-question-by-id';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let getQuestionByIdUseCase: GetQuestionByIdUseCase;
-let sut: DeleteQuestionByIdUseCase;
+let sut: EditQuestionUseCase;
 
-describe('Delete Question', () => {
+describe('Edit Question', () => {
   beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
     getQuestionByIdUseCase = new GetQuestionByIdUseCase(
       inMemoryQuestionsRepository,
     );
-    sut = new DeleteQuestionByIdUseCase(
+    sut = new EditQuestionUseCase(
       inMemoryQuestionsRepository,
       getQuestionByIdUseCase,
     );
   });
 
-  it('should be able to delete a question', async () => {
+  it('should be able to edit a question', async () => {
     const authorId = 'author-1';
     const questionId = 'question-1';
 
-    const question = makeQuestion(
+    const newQuestion = makeQuestion(
       {
         authorId: new UniqueEntityId(authorId),
+        title: 'Some title',
+        content: 'Some content',
       },
       new UniqueEntityId(questionId),
     );
 
-    await inMemoryQuestionsRepository.create(question);
+    await inMemoryQuestionsRepository.create(newQuestion);
 
     await sut.execute({
-      authorId,
       questionId,
+      authorId,
+      title: 'New title',
+      content: 'New content',
     });
 
-    expect(inMemoryQuestionsRepository.items).toHaveLength(0);
+    expect(inMemoryQuestionsRepository.items[0]).toMatchObject({
+      _id: new UniqueEntityId(questionId),
+      title: 'New title',
+      content: 'New content',
+    });
   });
 
-  it('should not be able to delete another user question', async () => {
+  it('should not be able to edit another user question', async () => {
     const questionId = 'question-1';
 
     const question = makeQuestion(
@@ -57,15 +65,19 @@ describe('Delete Question', () => {
       sut.execute({
         authorId: 'author-2',
         questionId: questionId,
+        title: 'New title',
+        content: 'New content',
       }),
     ).rejects.toBeInstanceOf(Error);
   });
 
-  it('should not be able to delete a non-existent question', async () => {
+  it('should not be able to edit a non-existent question', async () => {
     expect(() =>
       sut.execute({
         authorId: 'author-1',
         questionId: 'non-existent-question-id',
+        title: 'New title',
+        content: 'New content',
       }),
     ).rejects.toBeInstanceOf(Error);
   });
