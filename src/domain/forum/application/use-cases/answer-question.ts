@@ -1,15 +1,15 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 
-import { Answer } from '../../../entities/answer';
+import { Answer } from '../../enterprise/entities/answer';
 import { AnswersRepository } from '../repositories/answers-repository';
 
-interface AnswerQuestionRequest {
+interface AnswerQuestionUseCaseRequest {
   instructorId: string;
   questionId: string;
   content: string;
 }
 
-interface AnswerQuestionResponse {
+interface AnswerQuestionUseCaseResponse {
   answer: Answer;
 }
 
@@ -20,7 +20,7 @@ export class AnswerQuestion {
     instructorId,
     questionId,
     content,
-  }: AnswerQuestionRequest): Promise<AnswerQuestionResponse> {
+  }: AnswerQuestionUseCaseRequest): Promise<AnswerQuestionUseCaseResponse> {
     const answer = Answer.create({
       content,
       authorId: new UniqueEntityId(instructorId),
