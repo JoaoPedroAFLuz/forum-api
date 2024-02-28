@@ -5,7 +5,7 @@ let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let sut: CreateQuestionUseCase;
 
 describe('Create a Question', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
     sut = new CreateQuestionUseCase(inMemoryQuestionsRepository);
   });
@@ -20,5 +20,6 @@ describe('Create a Question', () => {
     expect(question.id).toBeTruthy();
     expect(question.title).toEqual('Nova pergunta');
     expect(question.content).toEqual('Conteúdo da pergunta');
+    expect(inMemoryQuestionsRepository.items[0]).toEqual(question);
   });
 });
