@@ -19,7 +19,7 @@ interface QuestionProps {
 export class Question extends Entity<QuestionProps> {
   static create(
     props: Optional<QuestionProps, 'createdAt' | 'slug'>,
-    id?: UniqueEntityId
+    id?: UniqueEntityId,
   ) {
     return new Question(
       {
@@ -27,7 +27,7 @@ export class Question extends Entity<QuestionProps> {
         slug: props.slug ?? Slug.createFormText(props.title),
         createdAt: new Date(),
       },
-      id
+      id,
     );
   }
 

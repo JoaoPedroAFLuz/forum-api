@@ -6,13 +6,21 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "lint": "prettier ./src --check && eslint ./src --ext .ts",
+    "lint:fix": "prettier ./src --write && eslint ./src --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.10.3",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "3.2.5",
     "typescript": "^5.3.3",
     "vite-tsconfig-paths": "^4.3.1",
     "vitest": "^1.0.1"
