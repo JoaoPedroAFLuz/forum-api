@@ -1,4 +1,5 @@
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
+
 import { AnswerQuestion } from './answer-question';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;

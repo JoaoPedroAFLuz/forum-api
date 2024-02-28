@@ -1,5 +1,6 @@
 import { makeQuestion } from 'test/factories/make-question';
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository';
+
 import { GetQuestionByIdUseCase } from './get-question-by-id';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;

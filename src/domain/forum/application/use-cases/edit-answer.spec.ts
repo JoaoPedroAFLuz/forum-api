@@ -1,47 +1,53 @@
 import { makeAnswer } from 'test/factories/make-answer';
+import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
 
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 
-import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
-import { DeleteAnswerByIdUseCase } from './delete-answer-by-id';
+import { EditAnswerUseCase } from './edit-answer';
 import { GetAnswerByIdUseCase } from './get-answer-by-id';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let getAnswerByIdUseCase: GetAnswerByIdUseCase;
-let sut: DeleteAnswerByIdUseCase;
+let sut: EditAnswerUseCase;
 
-describe('Delete Answer', () => {
+describe('Edit Answer', () => {
   beforeEach(() => {
     inMemoryAnswersRepository = new InMemoryAnswersRepository();
     getAnswerByIdUseCase = new GetAnswerByIdUseCase(inMemoryAnswersRepository);
-    sut = new DeleteAnswerByIdUseCase(
+    sut = new EditAnswerUseCase(
       inMemoryAnswersRepository,
       getAnswerByIdUseCase,
     );
   });
 
-  it('should be able to delete a answer', async () => {
+  it('should be able to edit a answer', async () => {
     const authorId = 'author-1';
     const answerId = 'answer-1';
 
-    const answerOne = makeAnswer(
+    const newAnswer = makeAnswer(
       {
         authorId: new UniqueEntityId(authorId),
+        content: 'Some content',
       },
       new UniqueEntityId(answerId),
     );
 
-    await inMemoryAnswersRepository.create(answerOne);
+    await inMemoryAnswersRepository.create(newAnswer);
 
     await sut.execute({
-      authorId,
       answerId,
+      authorId,
+      content: 'New content',
     });
 
-    expect(inMemoryAnswersRepository.items).toHaveLength(0);
+    expect(inMemoryAnswersRepository.items[0]).toMatchObject({
+      _id: new UniqueEntityId(answerId),
+      title: 'New title',
+      content: 'New content',
+    });
   });
 
-  it('should not be able to delete another user answer', async () => {
+  it('should not be able to edit another user answer', async () => {
     const answerId = 'answer-1';
 
     const answer = makeAnswer(
@@ -57,15 +63,17 @@ describe('Delete Answer', () => {
       sut.execute({
         authorId: 'author-2',
         answerId: answerId,
+        content: 'New content',
       }),
     ).rejects.toBeInstanceOf(Error);
   });
 
-  it('should not be able to delete a non-existent answer', async () => {
+  it('should not be able to edit a non-existent answer', async () => {
     expect(() =>
       sut.execute({
         authorId: 'author-1',
         answerId: 'non-existent-answer-id',
+        content: 'New content',
       }),
     ).rejects.toBeInstanceOf(Error);
   });

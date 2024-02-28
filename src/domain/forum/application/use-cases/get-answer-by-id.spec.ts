@@ -1,5 +1,6 @@
 import { makeAnswer } from 'test/factories/make-answer';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
+
 import { GetAnswerByIdUseCase } from './get-answer-by-id';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;

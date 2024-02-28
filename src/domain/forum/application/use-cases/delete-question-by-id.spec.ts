@@ -1,6 +1,8 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { makeQuestion } from 'test/factories/make-question';
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository';
+
+import { UniqueEntityId } from '@/core/entities/unique-entity-id';
+
 import { DeleteQuestionByIdUseCase } from './delete-question-by-id';
 import { GetQuestionByIdUseCase } from './get-question-by-id';
 
