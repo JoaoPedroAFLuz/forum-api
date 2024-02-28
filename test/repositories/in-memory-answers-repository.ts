@@ -17,4 +17,8 @@ export class InMemoryAnswersRepository implements AnswersRepository {
   async create(answer: Answer): Promise<void> {
     this.items.push(answer);
   }
+
+  async delete(answer: Answer): Promise<void> {
+    this.items = this.items.filter((item) => item.id !== answer.id);
+  }
 }
