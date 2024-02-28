@@ -6,7 +6,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
   async findById(questionId: string) {
     const question = this.items.find(
-      (item) => item.id.toValue() === questionId,
+      (item) => item.id.toString() === questionId,
     );
 
     if (!question) {
@@ -26,7 +26,11 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     return question;
   }
 
-  async create(question: Question): Promise<void> {
+  async create(question: Question) {
     this.items.push(question);
+  }
+
+  async delete(question: Question) {
+    this.items = this.items.filter((item) => item.id !== question.id);
   }
 }

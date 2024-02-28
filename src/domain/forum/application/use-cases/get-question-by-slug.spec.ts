@@ -29,7 +29,7 @@ describe('Get Question By Slug', () => {
   });
 
   it('should not be able to get a non existing question', async () => {
-    await expect(() =>
+    expect(() =>
       sut.execute({
         slug: 'non-existing-question',
       }),

@@ -26,8 +26,8 @@ describe('Get Question By Id', () => {
     expect(question.content).toEqual(newQuestion.content);
   });
 
-  it('should not be able to get a non-existent question by id', async () => {
-    await expect(() =>
+  it('should not be able to get a non-existent question', async () => {
+    expect(() =>
       sut.execute({
         questionId: 'non-existent-question-id',
       }),
