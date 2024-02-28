@@ -1,3 +1,4 @@
+import { Answer } from '../../enterprise/entities/answer';
 import { AnswersRepository } from '../repositories/answers-repository';
 import { GetAnswerByIdUseCase } from './get-answer-by-id';
 
@@ -7,7 +8,9 @@ interface EditAnswerUseCaseRequest {
   content: string;
 }
 
-interface EditAnswerUseCaseResponse {}
+interface EditAnswerUseCaseResponse {
+  answer: Answer;
+}
 
 export class EditAnswerUseCase {
   constructor(
@@ -32,6 +35,6 @@ export class EditAnswerUseCase {
 
     await this.answersRepository.save(answer);
 
-    return {};
+    return { answer };
   }
 }

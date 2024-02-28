@@ -23,6 +23,8 @@ describe('Edit Question', () => {
   it('should be able to edit a question', async () => {
     const authorId = 'author-1';
     const questionId = 'question-1';
+    const newTitle = 'New Title';
+    const newContent = 'New Content';
 
     const newQuestion = makeQuestion(
       {
@@ -35,17 +37,17 @@ describe('Edit Question', () => {
 
     await inMemoryQuestionsRepository.create(newQuestion);
 
-    await sut.execute({
+    const { question } = await sut.execute({
       questionId,
       authorId,
-      title: 'New title',
-      content: 'New content',
+      title: newTitle,
+      content: newContent,
     });
 
-    expect(inMemoryQuestionsRepository.items[0]).toMatchObject({
+    expect(question).toMatchObject({
       _id: new UniqueEntityId(questionId),
-      title: 'New title',
-      content: 'New content',
+      title: newTitle,
+      content: newContent,
     });
   });
 

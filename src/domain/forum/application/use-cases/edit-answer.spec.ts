@@ -34,13 +34,13 @@ describe('Edit Answer', () => {
 
     await inMemoryAnswersRepository.create(newAnswer);
 
-    await sut.execute({
+    const { answer } = await sut.execute({
       answerId,
       authorId,
       content: 'New content',
     });
 
-    expect(inMemoryAnswersRepository.items[0]).toMatchObject({
+    expect(answer).toMatchObject({
       _id: new UniqueEntityId(answerId),
       title: 'New title',
       content: 'New content',
