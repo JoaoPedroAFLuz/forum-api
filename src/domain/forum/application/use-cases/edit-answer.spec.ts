@@ -42,7 +42,6 @@ describe('Edit Answer', () => {
 
     expect(answer).toMatchObject({
       _id: new UniqueEntityId(answerId),
-      title: 'New title',
       content: 'New content',
     });
   });

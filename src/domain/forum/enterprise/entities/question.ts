@@ -23,9 +23,9 @@ export class Question extends Entity<QuestionProps> {
   ) {
     return new Question(
       {
-        ...props,
-        slug: props.slug ?? Slug.createFormText(props.title),
+        slug: Slug.createFormText(props.title),
         createdAt: new Date(),
+        ...props,
       },
       id,
     );
