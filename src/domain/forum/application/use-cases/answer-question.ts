@@ -13,7 +13,7 @@ interface AnswerQuestionUseCaseResponse {
   answer: Answer;
 }
 
-export class AnswerQuestion {
+export class AnswerQuestionUseCase {
   constructor(private answersRepository: AnswersRepository) {}
 
   async execute({
