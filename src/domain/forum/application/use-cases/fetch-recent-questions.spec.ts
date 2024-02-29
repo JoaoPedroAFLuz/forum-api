@@ -14,13 +14,13 @@ describe('Fetch Recent Questions', () => {
 
   it('should be able to fetch questions', async () => {
     const question1 = makeQuestion({
-      createdAt: new Date(2021, 0, 20),
+      createdAt: new Date(2024, 0, 1),
     });
     const question2 = makeQuestion({
-      createdAt: new Date(2021, 0, 21),
+      createdAt: new Date(2024, 0, 2),
     });
     const question3 = makeQuestion({
-      createdAt: new Date(2021, 0, 22),
+      createdAt: new Date(2024, 0, 3),
     });
 
     await inMemoryQuestionsRepository.create(question1);
