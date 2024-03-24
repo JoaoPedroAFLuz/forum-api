@@ -1,10 +1,10 @@
 import { makeQuestion } from 'test/factories/make-question';
-import { InMemoryQuestionCommentCommentsRepository } from 'test/repositories/in-memory-question-comments-repository';
+import { InMemoryQuestionCommentsRepository } from 'test/repositories/in-memory-question-comments-repository';
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository';
 import { CommentOnQuestionUseCase } from './comment-on-question';
 import { GetQuestionByIdUseCase } from './get-question-by-id';
 
-let inMemoryCommentOnQuestionRepository: InMemoryQuestionCommentCommentsRepository;
+let inMemoryCommentOnQuestionRepository: InMemoryQuestionCommentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let getQuestionByIdUeCase: GetQuestionByIdUseCase;
 let sut: CommentOnQuestionUseCase;
@@ -12,7 +12,7 @@ let sut: CommentOnQuestionUseCase;
 describe('Comment on Question', () => {
   beforeEach(() => {
     inMemoryCommentOnQuestionRepository =
-      new InMemoryQuestionCommentCommentsRepository();
+      new InMemoryQuestionCommentsRepository();
 
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
     getQuestionByIdUeCase = new GetQuestionByIdUseCase(
