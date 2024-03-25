@@ -6,6 +6,18 @@ export class InMemoryAnswerCommentsRepository
 {
   public items: AnswerComment[] = [];
 
+  async findById(answerCommentId: string) {
+    const answerComment = this.items.find(
+      (item) => item.id.toString() === answerCommentId,
+    );
+
+    if (!answerComment) {
+      return null;
+    }
+
+    return answerComment;
+  }
+
   async create(answerComment: AnswerComment) {
     this.items.push(answerComment);
   }
