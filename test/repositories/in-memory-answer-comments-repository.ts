@@ -21,4 +21,8 @@ export class InMemoryAnswerCommentsRepository
   async create(answerComment: AnswerComment) {
     this.items.push(answerComment);
   }
+
+  async delete(answerComment: AnswerComment): Promise<void> {
+    this.items = this.items.filter((item) => item.id !== answerComment.id);
+  }
 }
